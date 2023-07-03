@@ -52,34 +52,28 @@ Now you will create a simple Node.js app that connects to SQL Server.
 Using your favorite editor, create a file named connect.js in the SqlServerSample folder. Copy and paste the below contents into the file.
 
 ```javascript
-    var Connection = require('tedious').Connection;
-    var Request = require('tedious').Request;
-    var TYPES = require('tedious').TYPES;
-
-    // Create connection to database
-    var config = {
-      server: 'localhost',
-      authentication: {
-          type: 'default',
-          options: {
-              userName: 'sa', // update me
-              password: 'your_password' // update me
-          }
-      },
-      options: {
-          database: 'SampleDB'
-      }
+var Connection = require('tedious').Connection;  
+var config = {  
+    user: 'myusername',
+    password: 'mypassword',
+    server: 'myserver.database.windows.net',
+    port: 1434,
+    database: 'mydb',
+    trustServerCertificate: true,
+    authentication: {
+        type: 'default'
+    },
+    options: {
+        encrypt: true
     }
-    var connection = new Connection(config);
+};  
+var connection = new Connection(config);  
+connection.on('connect', function(err) {  
+    // If no error, then good to proceed.
+    console.log("Connected");  
+});
 
-    // Attempt to connect and execute queries if connection goes through
-    connection.on('connect', function(err) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log('Connected');
-      }
-    });
+connection.connect();
 ```
 
 Run the application.
@@ -153,25 +147,88 @@ Executed in 1 ms
 Using your favorite text editor, create a new file called crud.js in the SqlServerSample folder. Copy and paste the following code inside it. This will insert, update, delete, and read a few rows.
 
 ```javascript
+var Connection = require('tedious').Connection;  
+var config = {  
+    server: 'localhost', // better stored in an app setting such as process.env.DB_SERVER
+        authentication: {
+        type: 'default',
+            options: {
+                userName: 'btspendo',
+                password: '8z5q7*%Y!a#1N5B43#j0U7T9%GQ4!V@CuC!SG9G9TP%&n$a555'
+            }
+    },
+    options: {
+        encrypt: true,
+        port: 1434,
+        trustServerCertificate: true,
+        database: 'drivers1'
+    }
+};  
+
+var connection = new Connection(config);  
+connection.on('connect', function(err) {  
+    // If no error, then good to proceed.  
+    console.log("Connected");  
+    executeStatement();  
+});  
+
+connection.connect();
+
+var Request = require('tedious').Request;  
+var TYPES = require('tedious').TYPES;  
+
+function executeStatement() {  
+    var request = new Request("SELECT * from [TestSchema].[Employees];", function(err) {  
+    if (err) {  
+        console.log(err);}  
+    });  
+    var result = "";  
+    request.on('row', function(columns) {  
+        columns.forEach(function(column) {  
+          if (column.value === null) {  
+            console.log('NULL');  
+          } else {  
+            result+= column.value + " ";  
+          }  
+        });  
+        console.log(result);  
+        result ="";  
+    });  
+
+    request.on('done', function(rowCount, more) {  
+    console.log(rowCount + ' rows returned');  
+    });  
+    
+    // Close the connection after the final event emitted by the request, after the callback passes
+    request.on("requestCompleted", function (rowCount, more) {
+        connection.close();
+    });
+    connection.execSql(request);  
+} 
+```
+
+```javascript
 var Connection = require('tedious').Connection;
 var Request = require('tedious').Request;
 var TYPES = require('tedious').TYPES;
 var async = require('async');
 
-// Create connection to database
-var config = {
-  server: 'localhost',
-  authentication: {
-      type: 'default',
-      options: {
-          userName: 'sa', // update me
-          password: 'your_password' // update me
-      }
-  },
-  options: {
-    database: 'SampleDB'
-  }
-}
+var config = {  
+    server: 'localhost', // better stored in an app setting such as process.env.DB_SERVER
+        authentication: {
+        type: 'default',
+            options: {
+                userName: 'btspendo',
+                password: '8z5q7*%Y!a#1N5B43#j0U7T9%GQ4!V@CuC!SG9G9TP%&n$a555'
+            }
+    },
+    options: {
+        encrypt: true,
+        port: 1434,
+        trustServerCertificate: true,
+        database: 'drivers1'
+    }
+};  
 
 var connection = new Connection(config);
 
@@ -279,6 +336,7 @@ function Complete(err, result) {
         callback(err);
     } else {
         console.log("Done!");
+        connection.close();
     }
 }
 
@@ -299,6 +357,8 @@ connection.on('connect', function(err) {
     ], Complete)
   }
 });
+
+connection.connect();
 ```
 
 Run the crud.js app to see the results
