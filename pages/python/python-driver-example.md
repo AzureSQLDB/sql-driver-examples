@@ -29,6 +29,10 @@ permalink: /python/windows/server/step/2
 
 ## Step 2.1 Get Connection Information to use in Connection Strings, and Create a Firewall Rule.
 
+
+DOWNLOAD THE ODBC 18 DRIVER 
+https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver16
+
 {% include partials/get_azure_sql_connection_info.md %}
 
 ## Step 2.2 Create a Python app that connects to Azure SQL and executes queries
