@@ -1,9 +1,3 @@
----
-layout: page-steps
-language: GO
-title: Windows
-permalink: /go/windows/server/step/2
----
 # Create a Go app that connects to SQL Server and executes queries using Visual Studio Code
 
 ## Prerequisites
