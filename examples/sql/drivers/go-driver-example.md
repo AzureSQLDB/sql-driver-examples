@@ -10,7 +10,7 @@ permalink: /go/windows/server/step/2
 
 1. Have [Go](https://go.dev/dl/) installed
 
-## Step 1, Setup and create a Go app that connects to SQL Server
+## Step 1, Setup Go for development in Visual Studio Code
 
 1. Start Visual Studio Code.
 
@@ -42,7 +42,7 @@ permalink: /go/windows/server/step/2
 
 1. Add the Microsoft SQL driver for Go to the project with the following command in the terminal:
 
-    ```terminal
+    ```bash
     go get github.com/microsoft/go-mssqldb@latest
     ```
 
@@ -55,37 +55,24 @@ permalink: /go/windows/server/step/2
     go: added golang.org/x/crypto v0.9.0
     ```
 
-> MAJOR DB PREREQS HERE (sqlcmd, create db, etc)
+## Step 2, Create a Go app that connects to SQL Server and executes queries
 
-https://go.dev/dl/
+1. Create a file in Visual Studio Code by selecting File > New File from the main menu.
 
-go install github.com/microsoft/go-mssqldb@latest
+1. Enter connect.go for the file's name in the New File dialog and press enter/return.
 
+1. Choose the goexample directory and create the file.
 
+1. Replace the contents of connect.go by copying and pasting the code below into the file. Don't forget to replace
 
-Golang to query a database
+    ```go
+    var server = "<your_server.database.windows.net>"
+    var port = <your_database_port>
+    var user = "<your_username>"
+    var password = "<your_password>"
+    ```
 
-## Step 1, Create a C# app that connects to SQL Server and executes queries using Visual Studio Code
-
-Start Visual Studio Code.
-
-> After getting SQL Server and GoLang installed, you can now proceed to create your new Go projects. Here we will explore three simple applications. One of them will connect and print the SQL Server version of your database server, the other one will perform basic Insert, Update, Delete, and Select operations, and the third one will make use of [GORM](https://github.com/jinzhu/gorm), a popular object relational mapping (ORM) framework for Go to execute the same operations.
-
-## Create a Go app that connects to SQL Server and executes queries
-
-Install go
-
-https://go.dev/dl/
-
-initialize the go.mod file
-
-go mod init example.com/m/v2
-
-add the SQL driver to the project
-
-go get github.com/microsoft/go-mssqldb@latest
-
-create a file and add the contents
+    with the values of your database.
 
 ```go
 package main
@@ -149,19 +136,25 @@ func SelectVersion(){
 }
 ```
 
-Run the application.
+1. **Save** the file.
 
-```terminal
-go run connect.go
-```
+1. Run the application in the terminal with the following command:
 
-```results
-Connected!
-Microsoft SQL Server 2017 (CTP2.1) - 14.0.600.250 (X64)
-        May 10 2017 12:21:23
-        Copyright (C) 2017 Microsoft Corporation. All rights reserved.
-        Developer Edition (64-bit) on Linux (Ubuntu 16.04.2 LTS)
-```
+    ```terminal
+    go run connect.go
+    ```
+
+    with the output of the command being similar to the following (version numbers may be different):
+
+    ```results
+    2023/07/05 12:54:35 Connected!
+    Microsoft SQL Server 2022 (RTM-CU5) (KB5026806) - 16.0.4045.3 (X64) 
+            May 26 2023 12:52:08
+            Copyright (C) 2022 Microsoft Corporation
+            Developer Edition (64-bit) on Linux (Ubuntu 20.04.6 LTS) <X64>
+    ```
+
+#################################################################################
 
 Using your favorite text editor, create a file called CreateTestData.sql in the SqlServerSample folder. Copy and paste the following the T-SQL code inside it. This will create a schema, table, and insert a few rows.
 

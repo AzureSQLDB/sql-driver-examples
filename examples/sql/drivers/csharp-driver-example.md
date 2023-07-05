@@ -100,7 +100,7 @@
     }
     ```
 
-1. Save and close the file.
+1. **Save** the file.
 
 1. Run the following command in the Terminal:
 
