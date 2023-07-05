@@ -4,13 +4,13 @@ language: GO
 title: Windows
 permalink: /go/windows/server/step/2
 ---
-# Create a Go app that connects to SQL Server with the Microsoft SqlClient Data Provider for SQL Server
+# Create a Go app that connects to SQL Server and executes queries using Visual Studio Code
 
 ## Prerequisites
 
 1. Have [Go](https://go.dev/dl/) installed
 
-## Step 1, Create a C# app that connects to SQL Server and executes queries using Visual Studio Code
+## Step 1, Setup and create a Go app that connects to SQL Server
 
 1. Start Visual Studio Code.
 
@@ -31,6 +31,7 @@ permalink: /go/windows/server/step/2
     ```bash
     go mod init goexample.com/m/v2
     ```
+
     with the output of the command being
 
     ```results
@@ -38,6 +39,21 @@ permalink: /go/windows/server/step/2
     ```
 
     and a go.mod file created.
+
+1. Add the Microsoft SQL driver for Go to the project with the following command in the terminal:
+
+    ```terminal
+    go get github.com/microsoft/go-mssqldb@latest
+    ```
+
+    with the output of the command being similar to the following (version numbers may be different):
+
+    ```results
+    go: added github.com/golang-sql/civil v0.0.0-20220223132316-b832511892a9
+    go: added github.com/golang-sql/sqlexp v0.1.0
+    go: added github.com/microsoft/go-mssqldb v1.3.0
+    go: added golang.org/x/crypto v0.9.0
+    ```
 
 > MAJOR DB PREREQS HERE (sqlcmd, create db, etc)
 
