@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-1. [C# for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
+1. [C# for Visual Studio Code Extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
 
 ## Step 1, Create a C# app that connects to SQL Server and executes queries using Visual Studio Code
 
