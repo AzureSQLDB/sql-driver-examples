@@ -1,4 +1,4 @@
-# Example Setups
+# Setups to run the SQL Server examples
 
 To run the SQL Server examples, you will need the following:
 
