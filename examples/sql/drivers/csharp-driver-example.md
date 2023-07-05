@@ -1,10 +1,3 @@
----
-layout: page-steps
-language: C#
-title: Windows
-permalink: /csharp/win/server/step/2
----
-
 # Create a C# app that connects to SQL Server with the Microsoft SqlClient Data Provider for SQL Server
 
 ## Prerequisites
@@ -13,125 +6,122 @@ permalink: /csharp/win/server/step/2
 
 ## Step 1, Create a C# app that connects to SQL Server and executes queries using Visual Studio Code
 
-Start Visual Studio Code.
+1. Start Visual Studio Code.
 
-Select File > Open Folder (File > Open... on macOS) from the main menu.
+1.Select File > Open Folder (File > Open... on macOS) from the main menu.
 
-In the Open Folder dialog, create a HelloWorld folder and select it. Then click Select Folder (Open on macOS).
+1. In the Open Folder dialog, create a csharpexample folder and select it. Then click Select Folder (Open on macOS).
 
-The folder name becomes the project name and the namespace name by default. You'll add code later in the tutorial that assumes the project namespace is HelloWorld.
+    The folder name becomes the project name and the namespace name by default. You'll add code later in the tutorial that assumes the project namespace is HelloWorld.
 
-In the Do you trust the authors of the files in this folder? dialog, select Yes, I trust the authors.
+1. In the Do you trust the authors of the files in this folder? dialog, select **Yes, I trust the authors**.
 
-Open the Terminal in Visual Studio Code by selecting View > Terminal from the main menu.
+1. Open the **Terminal** in Visual Studio Code by selecting View > Terminal from the main menu.
 
-The Terminal opens with the command prompt in the HelloWorld folder.
+    The Terminal opens with the command prompt in the csharpexample folder.
 
-In the Terminal, enter the following command:
+1. In the Terminal, enter the following command:
 
-.NET CLI
-
-
+```bash
 dotnet new console --framework net7.0
+```
 
+1. While still in the terminal, run the following command:
 
+```bash
 dotnet add package Microsoft.Data.SqlClient
-
-**Create a C# console application**
-
-1. Launch Visual Studio Community
-1. Click **File -> New -> Project**
-1. In the **New project** dialog, click **Windows** located under **Visual C#** in the **Templates** node
-1. Click **Console Application Visual C#**
-1. Name the project _"SqlServerSample"_
-1. Click **OK** to create the project
-
+```
 
 ## Step 2, Issue a database query with the Microsoft SqlClient Data Provider for SQL Server
 
-Visual Studio creates a new C# Console Application project and opens the file **Program.cs**. Replace the contents of Program.cs by copying and pasting the code below into the file. Don't forget to replace the username and password with your own. Save and close the file.
+1. Visual Studio Code creates a new C# Console Application project (csharpexample.csproj) and and a file  named **Program.cs**.
 
+    Click on the Program.cs file to see it in the Visual Studio Code editor.
 
-Section on
-                builder.DataSource = "<your_server.database.windows.net>"; 
-                builder.UserID = "<your_username>";            
-                builder.Password = "<your_password>";     
-                builder.InitialCatalog = "<your_database>";
-and can be Azure or SQL Server
+1. Replace the contents of Program.cs by copying and pasting the code below into the file. Don't forget to replace
 
+    ```csharp
+    builder.DataSource = "<your_server.database.windows.net>"; 
+    builder.UserID = "<your_username>";            
+    builder.Password = "<your_password>";     
+    builder.InitialCatalog = "<your_database>";
+    ```
 
-```csharp
-using Microsoft.Data.SqlClient;
+    with the values of your database.
 
-namespace sqltest
-{
-    class Program
+    ```csharp
+    using Microsoft.Data.SqlClient;
+    
+    namespace sqltest
     {
-        static void Main(string[] args)
+        class Program
         {
-            try 
-            { 
-                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-
-                builder.DataSource = "<your_server.database.windows.net>"; 
-                builder.UserID = "<your_username>";            
-                builder.Password = "<your_password>";     
-                builder.InitialCatalog = "<your_database>";
-                builder.TrustServerCertificate = true;
-         
-                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
-                {
-                    Console.WriteLine("\nQuery data example:");
-                    Console.WriteLine("=========================================\n");
-                    
-                    connection.Open();       
-
-                    String sql = "SELECT name, collation_name FROM sys.databases";
-
-                    using (SqlCommand command = new SqlCommand(sql, connection))
-                    {
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                Console.WriteLine("{0} {1}", reader.GetString(0), reader.GetString(1));
-                            }
-                        }
-                    }                    
-                }
-            }
-            catch (SqlException e)
+            static void Main(string[] args)
             {
-                Console.WriteLine(e.ToString());
+                try 
+                { 
+                    SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+    
+                    builder.DataSource = "<your_server.database.windows.net>"; 
+                    builder.UserID = "<your_username>";            
+                    builder.Password = "<your_password>";     
+                    builder.InitialCatalog = "<your_database>";
+                    builder.TrustServerCertificate = true;
+             
+                    using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                    {
+                        Console.WriteLine("\nQuery data example:");
+                        Console.WriteLine("=========================================\n");
+                        
+                        connection.Open();       
+    
+                        String sql = "SELECT name, collation_name FROM sys.databases";
+    
+                        using (SqlCommand command = new SqlCommand(sql, connection))
+                        {
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    Console.WriteLine("{0} {1}", reader.GetString(0), reader.GetString(1));
+                                }
+                            }
+                        }                    
+                    }
+                }
+                catch (SqlException e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+                Console.WriteLine("\nDone. Press enter.");
+                Console.ReadLine(); 
             }
-            Console.WriteLine("\nDone. Press enter.");
-            Console.ReadLine(); 
         }
     }
-}
-```
+    ```
 
-Run the following command in the Terminal:
+1. Save and close the file.
 
-```bash
-dotnet run
-```
+1. Run the following command in the Terminal:
 
-Verify that the rows are returned, your output may include other values.
+    ```bash
+    dotnet run
+    ```
 
-```results
-Query data example:
-=========================================
+    Verify that the rows are returned, your output may include other values.
 
-master SQL_Latin1_General_CP1_CI_AS
-tempdb SQL_Latin1_General_CP1_CI_AS
-model SQL_Latin1_General_CP1_CI_AS
-msdb SQL_Latin1_General_CP1_CI_AS
-drivers1 SQL_Latin1_General_CP1_CI_AS
-
-Done. Press enter.
-```
-
+    ```results
+    Query data example:
+    =========================================
+    
+    master SQL_Latin1_General_CP1_CI_AS
+    tempdb SQL_Latin1_General_CP1_CI_AS
+    model SQL_Latin1_General_CP1_CI_AS
+    msdb SQL_Latin1_General_CP1_CI_AS
+    drivers1 SQL_Latin1_General_CP1_CI_AS
+    
+    Done. Press enter.
+    ```
 
 ## Step 3, Issue Insert, Update and Delete command to the database with the Microsoft SqlClient Data Provider for SQL Server
 
