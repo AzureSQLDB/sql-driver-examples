@@ -86,10 +86,10 @@ import (
 )
 
 // Replace with your own connection parameters
-var server = "localhost"
-var port = 1434
-var user = "btspendo"
-var password = "8z5q7*%Y!a#1N5B43#j0U7T9%GQ4!V@CuC!SG9G9TP%&n$a555"
+var server = "<your_server.database.windows.net>"
+var port = <your_database_port>
+var user = "<your_username>"
+var password = "<your_password>"
 
 var db *sql.DB
 
