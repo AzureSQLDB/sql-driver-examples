@@ -8,7 +8,8 @@ permalink: /csharp/win/server/step/2
 # Create a C# app that connects to SQL Server with the Microsoft SqlClient Data Provider for SQL Server
 
 > Prerequisites
-    1. C# for Visual Studio Code
+
+    1. [C# for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
 
 ## Step 1, Create a C# app that connects to SQL Server and executes queries using Visual Studio Code
 
