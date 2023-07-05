@@ -22,15 +22,15 @@
 
 1. In the Terminal, enter the following command:
 
-```bash
-dotnet new console --framework net7.0
-```
+    ```bash
+    dotnet new console --framework net7.0
+    ```
 
 1. While still in the terminal, run the following command:
 
-```bash
-dotnet add package Microsoft.Data.SqlClient
-```
+    ```bash
+    dotnet add package Microsoft.Data.SqlClient
+    ```
 
 ## Step 2, Issue a database query with the Microsoft SqlClient Data Provider for SQL Server
 

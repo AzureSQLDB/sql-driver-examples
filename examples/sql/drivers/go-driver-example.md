@@ -4,7 +4,40 @@ language: GO
 title: Windows
 permalink: /go/windows/server/step/2
 ---
-# Create a C# app that connects to SQL Server with the Microsoft SqlClient Data Provider for SQL Server
+# Create a Go app that connects to SQL Server with the Microsoft SqlClient Data Provider for SQL Server
+
+## Prerequisites
+
+1. Have [Go](https://go.dev/dl/) installed
+
+## Step 1, Create a C# app that connects to SQL Server and executes queries using Visual Studio Code
+
+1. Start Visual Studio Code.
+
+1. Select File > Open Folder (File > Open... on macOS) from the main menu.
+
+1. In the Open Folder dialog, create a goexample folder and select it. Then click Select Folder (Open on macOS).
+
+    The folder name becomes the project name and the namespace name by default. You'll add code later in the tutorial that assumes the project namespace is HelloWorld.
+
+1. In the Do you trust the authors of the files in this folder? dialog, select **Yes, I trust the authors**.
+
+1. Open the **Terminal** in Visual Studio Code by selecting View > Terminal from the main menu.
+
+    The Terminal opens with the command prompt in the goexample folder.
+
+1. In the Terminal, enter the following command to initialize the go.mod file:
+
+    ```bash
+    go mod init goexample.com/m/v2
+    ```
+    with the output of the command being
+
+    ```results
+    go: creating new go.mod: module goexample.com/m/v2
+    ```
+
+    and a go.mod file created.
 
 > MAJOR DB PREREQS HERE (sqlcmd, create db, etc)
 
