@@ -8,7 +8,7 @@
 
 1. Start Visual Studio Code.
 
-1.Select File > Open Folder (File > Open... on macOS) from the main menu.
+1. Select File > Open Folder (File > Open... on macOS) from the main menu.
 
 1. In the Open Folder dialog, create a csharpexample folder and select it. Then click Select Folder (Open on macOS).
 
