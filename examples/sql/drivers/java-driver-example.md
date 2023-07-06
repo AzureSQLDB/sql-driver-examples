@@ -8,7 +8,7 @@
 1. [Maven](https://maven.apache.org/download.cgi)
 1. Ensure that both Maven and Java are in you Environment PATH. You can check Maven with **mvn -version** and Java with **java -version**.
 
-## Step 1, Create a Java app that connects to SQL Server
+## Step 1, Setup Java for development in Visual Studio Code
 
 1. Start Visual Studio Code.
 
@@ -69,6 +69,8 @@
     ```
 
 1. **Save** the file.
+
+## Step 2, Create a Java app that connects to SQL Server
 
 1. Using the Visual Studio Code file explorer again, find the App.java file located at SqlServerSample\src\main\java\com\sqlsamples\App.java
 
@@ -138,7 +140,7 @@
     Connecting to SQL Server ... Done.
     ```
 
-## Step 2, Create a Java app that connects to SQL Server and executes queries using Visual Studio Code
+## Step 3, Create a Java app that connects to SQL Server and executes queries using Visual Studio Code
 
 1. Open the App.java file in a Visual Studio Code editor page if not already opened. The next app will create a database and a table, and will insert, update, delete, and read a few rows.
 

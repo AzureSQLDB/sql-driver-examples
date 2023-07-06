@@ -153,14 +153,14 @@
 
 Use [Query Editor sheets in Visual Studio Code](https://code.visualstudio.com/docs/languages/tsql) to run the following TSQL in the Master and SampleDB Databases.
 
-1. Run the following TSQL in the Master database.
+1. Run the following TSQL in the **Master** database.
 
     ```sql
     DROP DATABASE IF EXISTS [SampleDB]; CREATE DATABASE [SampleDB]
     GO
     ```
 
-1. Run the following TSQL in the SampleDB database.
+1. Run the following TSQL in the **SampleDB** database.
 
     ```sql
     CREATE SCHEMA TestSchema;
