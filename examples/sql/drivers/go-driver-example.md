@@ -15,8 +15,6 @@
 
 1. In the Open Folder dialog, create a goexample folder in a directory of your choice and select it. Then click Select Folder (Open on macOS).
 
-    The folder name becomes the project name and the namespace name by default. You'll add code later in the tutorial that assumes the project namespace is HelloWorld.
-
 1. In the Do you trust the authors of the files in this folder? dialog, select **Yes, I trust the authors**.
 
 1. Open the **Terminal** in Visual Studio Code by selecting View > Terminal from the main menu.
@@ -52,7 +50,7 @@
     go: added golang.org/x/crypto v0.9.0
     ```
 
-## Step 2, Create a Go app that connects to SQL Server and executes queries
+## Step 2, Create a Go app that connects to SQL Server
 
 1. Create a file in Visual Studio Code by selecting File > New File from the main menu.
 

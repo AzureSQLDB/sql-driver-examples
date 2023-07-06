@@ -1,45 +1,37 @@
----
-layout: page-steps
-language: Node.js
-title: Windows
-permalink: /node/windows/server/step/2
----
-# Create a C# app that connects to SQL Server with the Microsoft SqlClient Data Provider for SQL Server
+# Create a Node.js app that connects to SQL Server and executes queries using Visual Studio Code
 
-> MAJOR DB PREREQS HERE (sqlcmd, create db, etc)
+> These examples may be used with Azure SQL Database
 
-https://go.dev/dl/
+## Prerequisites
 
-go install github.com/microsoft/go-mssqldb@latest
+1. [Node.js](https://nodejs.org/en/download) installed
 
+# Create a Node.js app that connects to SQL Server
 
+1. Start Visual Studio Code.
 
-Golang to query a database
+1. Select File > Open Folder (File > Open... on macOS) from the main menu.
 
-## Step 1, Create a C# app that connects to SQL Server and executes queries using Visual Studio Code
+1. In the Open Folder dialog, create a nodeexample folder in a directory of your choice and select it. Then click Select Folder (Open on macOS).
 
-Start Visual Studio Code.
+1. In the Do you trust the authors of the files in this folder? dialog, select **Yes, I trust the authors**.
 
-> After getting SQL Server and GoLang installed, you can now proceed to create your new Go projects. Here we will explore three simple applications. One of them will connect and print the SQL Server version of your database server, the other one will perform basic Insert, Update, Delete, and Select operations, and the third one will make use of [GORM](https://github.com/jinzhu/gorm), a popular object relational mapping (ORM) framework for Go to execute the same operations.
+1. Open the **Terminal** in Visual Studio Code by selecting View > Terminal from the main menu.
 
-## Create a Go app that connects to SQL Server and executes queries
+    The Terminal opens with the command prompt in the nodeexample folder.
 
+1. In the Terminal, enter the following command to initialize Node dependencies.
 
-> In this section you will create two simple Node.js apps. One of them will perform basic Insert, Update, Delete, and Select, while the second one will make use of Sequelize, one of the most popular Node.js Object-relational mappers, to execute the same operations.
-
-## Step 2.1 Create a Node.js app that connects to SQL Server and executes queries
-
-Create a new project directory and initialize Node dependencies.
-
-```terminal
-    cd ~/
-    mkdir SqlServerSample
-    cd SqlServerSample
+    ```bash
     npm init -y
-    #Install tedious and async module in your project folder
+    ```
+
+1. Next, in the terminal, install tedious and async module in the same project folder by running the following commands:
+
+    ```bash
     npm install tedious
     npm install async
-```
+    ```
 
 Create a database that will be used for the rest of this tutorial by connecting to SQL Server using sqlcmd and executing the following statement.
 
@@ -47,44 +39,68 @@ Create a database that will be used for the rest of this tutorial by connecting 
     sqlcmd -S localhost -U sa -P your_password -Q "CREATE DATABASE SampleDB;"
 ```
 
-Now you will create a simple Node.js app that connects to SQL Server.
+## Step 2, Create a Node.js app that connects to SQL Server
 
-Using your favorite editor, create a file named connect.js in the SqlServerSample folder. Copy and paste the below contents into the file.
+1. Create a file in Visual Studio Code by selecting File > New File from the main menu.
 
-```javascript
-var Connection = require('tedious').Connection;  
-var config = {  
-    user: 'myusername',
-    password: 'mypassword',
-    server: 'myserver.database.windows.net',
-    port: 1434,
-    database: 'mydb',
-    trustServerCertificate: true,
-    authentication: {
-        type: 'default'
-    },
-    options: {
-        encrypt: true
-    }
-};  
-var connection = new Connection(config);  
-connection.on('connect', function(err) {  
-    // If no error, then good to proceed.
-    console.log("Connected");  
-});
+1. Enter connect.js for the file's name in the New File dialog and press enter/return.
 
-connection.connect();
-```
+1. Choose the nodeexample directory and create the file.
 
-Run the application.
+1. Replace the contents of connect.js by copying and pasting the code below into the file. Don't forget to replace
 
-```terminal
-  node connect.js
-```
+    ```javascript
+    server: '<your_server.database.windows.net>',
+    userName: '<your_username>',
+    password: '<your_password>',
+    port: <your_database_port>,
+    ```
 
-```results
-  Connected
-```
+    with the values of your database.
+
+    ```javascript
+    var Connection = require('tedious').Connection;  
+    
+    var config = {
+        server: '<your_server.database.windows.net>',
+        authentication: {
+            type: 'default',
+            options: {
+            userName: '<your_username>',
+            password: '<your_password>' 
+            }
+        },
+        options: {
+            database: 'master',
+            port: <your_database_port>,
+            trustServerCertificate: true,
+            encrypt: true
+        }
+    };
+    
+    const connection = new Connection(config);
+    
+    connection.connect((err) => {  
+            if (err) 
+            {
+                console.log(err)
+            }else{
+                console.log("Connected");
+                connection.close();
+            }
+    });
+    ```
+
+1. Run the application in the terminal with the following command:
+
+    ```bash
+      node connect.js
+    ```
+    with the output of the command being:
+
+    ```results
+      Connected
+    ```
 
 Using your favorite text editor, create a file called CreateTestData.sql in the SqlServerSample folder. Copy and paste the following the T-SQL code inside it. This will create a schema, table, and insert a few rows.
 
