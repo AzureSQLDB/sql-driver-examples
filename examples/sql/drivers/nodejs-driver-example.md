@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-1. [Node.js](https://nodejs.org/en/download) installed
+1. [Node.js](https://nodejs.org/en/download)
 
 ## Step 1, Setup Node.js for development in Visual Studio Code
 

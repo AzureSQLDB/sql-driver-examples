@@ -1,29 +1,219 @@
-import pyodbc 
-# Some other example server values are
-# server = 'localhost\sqlexpress' # for a named instance
-# server = 'myserver,port' # to specify an alternate port
-server = 'tcp:myserver.database.windows.net'
-database = 'mydb'
-username = 'myusername'
-password = 'mypassword'
-# ENCRYPT defaults to yes starting in ODBC Driver 18. It's good to always specify ENCRYPT=yes on the client side to avoid MITM attacks.
-cnxn = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};SERVER='+server+';DATABASE='+database+';ENCRYPT=yes;TrustServerCertificate=yes;UID='+username+';PWD='+ password)
-cursor = cnxn.cursor()
+# Create a Python app that connects to SQL Server and executes queries using Visual Studio Code
 
-#Sample select query
-cursor.execute("SELECT @@version;") 
-row = cursor.fetchone() 
-while row: 
-    print(row[0])
-    row = cursor.fetchone()
+> These examples may be used with Azure SQL Database
+
+## Prerequisites
+
+1. [Python](https://www.python.org/downloads/)
+1. [Microsoft ODBC Driver 18 for SQL Server](https://learn.microsoft.com/sql/connect/odbc/download-odbc-driver-for-sql-server)
+
+## Step 1, Setup Python for development in Visual Studio Code
+
+1. Start Visual Studio Code.
+
+1. Select File > Open Folder (File > Open... on macOS) from the main menu.
+
+1. In the Open Folder dialog, create a pythonexample folder in a directory of your choice and select it. Then click Select Folder (Open on macOS).
+
+1. In the Do you trust the authors of the files in this folder? dialog, select **Yes, I trust the authors**.
+
+1. Open the **Terminal** in Visual Studio Code by selecting View > Terminal from the main menu.
+
+    The Terminal opens with the command prompt in the pythonexample folder.
+
+1. In the Terminal, enter the following command to install the [Python SQL Driver](https://learn.microsoft.com/sql/connect/python/pyodbc/python-sql-driver-pyodbc):
+
+    ```bash
+    pip install pyodbc 
+    ```
+
+## Step 2, Create a Python app that connects to SQL Server
+
+1. Create a file in Visual Studio Code by selecting File > New File from the main menu.
+
+1. Enter connect.py for the file's name in the New File dialog and press enter/return.
+
+1. Choose the pythonexample directory and create the file.
+
+1. Replace the contents of connect.py by copying and pasting the code below into the file. Don't forget to replace
+
+    ```python
+    server = 'tcp:<your_server.database.windows.net>'
+    username = '<your_username>'
+    password = '<your_password>'
+    port = '<your_port_number>'
+    ```
+
+    with the values of your database.
+
+    ```python
+    import pyodbc 
+
+    server = 'tcp:<your_server.database.windows.net>'
+    database = 'master'
+    username = '<your_username>'
+    password = '<your_password>'
+    port = '<your_port_number>'
+
+    # ENCRYPT defaults to yes starting in ODBC Driver 18. It's good to always specify ENCRYPT=yes on the client side to avoid MITM attacks.
+    cnxn = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};SERVER='+server+','+port+';DATABASE='+database+';ENCRYPT=yes;TrustServerCertificate=yes;UID='+username+';PWD='+ password)
+    cursor = cnxn.cursor()
+    
+    #Sample select query
+    cursor.execute("SELECT @@version;") 
+    row = cursor.fetchone() 
+    while row: 
+        print(row[0])
+        row = cursor.fetchone()
+    ```
+
+1. **Save** the file.
+
+1. Run the application in the terminal with the following command:
+
+    ```terminal
+    python connect.py
+    ```
+
+    with the output of the command being similar to the following (version numbers may be different):
+
+    ```results
+    2023/07/05 12:54:35 Connected!
+    Microsoft SQL Server 2022 (RTM-CU5) (KB5026806) - 16.0.4045.3 (X64) 
+            May 26 2023 12:52:08
+            Copyright (C) 2022 Microsoft Corporation
+            Developer Edition (64-bit) on Linux (Ubuntu 20.04.6 LTS) <X64>
+    ```
+
+## Step 3, Create a sample database, schema, and objects
+
+Use [Query Editor sheets in Visual Studio Code](https://code.visualstudio.com/docs/languages/tsql) to run the following TSQL in the Master and SampleDB Databases.
+
+1. Run the following TSQL in the **Master** database.
+
+    ```sql
+    DROP DATABASE IF EXISTS [SampleDB]; CREATE DATABASE [SampleDB]
+    GO
+    ```
+
+1. Run the following TSQL in the **SampleDB** database.
+
+    ```sql
+    CREATE SCHEMA TestSchema;
+    GO
+    
+    CREATE TABLE TestSchema.Employees (
+      Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+      Name NVARCHAR(50),
+      Location NVARCHAR(50)
+    );
+    GO
+    
+    INSERT INTO TestSchema.Employees (Name, Location) VALUES
+    (N'Jared', N'Australia'),
+    (N'Nikita', N'India'),
+    (N'Tom', N'Germany');
+    GO
+    
+    SELECT * FROM TestSchema.Employees;
+    GO
+    ```
+
+## Step 4, Create a sample Python app that interacts with the database
+
+1. Create a file in Visual Studio Code by selecting File > New File from the main menu.
+
+1. Enter interact.go for the file's name in the New File dialog and press enter/return.
+
+1. Choose the pythonexample directory and create the file.
+
+1. Replace the contents of interact.py by copying and pasting the code below into the file. Don't forget to replace
+
+    ```python
+    server = 'tcp:<your_server.database.windows.net>'
+    username = '<your_username>'
+    password = '<your_password>'
+    port = '<your_port_number>'
+    ```
+
+    with the values of your database.
+
+    ```python
+    import pyodbc
+    server = 'tcp:<your_server.database.windows.net>'
+    database = 'SampleDB'
+    username = '<your_username>'
+    password = '<your_password>'
+    port = '<your_port_number>'
+    cnxn = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};SERVER='+server+','+port+';DATABASE='+database+';ENCRYPT=yes;TrustServerCertificate=yes;UID='+username+';PWD='+ password)
+    cursor = cnxn.cursor()
+    
+    print ('Inserting a new row into table')
+    #Insert Query
+    tsql = "INSERT INTO TestSchema.Employees (Name, Location) VALUES (?,?);"
+    with cursor.execute(tsql,'Jake','United States'):
+        print ('Successfully Inserted!')
+    
+    
+    #Update Query
+    print ('Updating Location for Nikita')
+    tsql = "UPDATE TestSchema.Employees SET Location = ? WHERE Name = ?"
+    with cursor.execute(tsql,'Sweden','Nikita'):
+        print ('Successfully Updated!')
+    
+    
+    #Delete Query
+    print ('Deleting user Jared')
+    tsql = "DELETE FROM TestSchema.Employees WHERE Name = ?"
+    with cursor.execute(tsql,'Jared'):
+        print ('Successfully Deleted!')
+    
+    
+    #Select Query
+    print ('Reading data from table')
+    tsql = "SELECT Name, Location FROM TestSchema.Employees;"
+    with cursor.execute(tsql):
+        row = cursor.fetchone()
+        while row:
+            print (str(row[0]) + " " + str(row[1]))
+            row = cursor.fetchone()
+    ```
+
+1. **Save** the file.
+
+1. Run the application in the terminal with the following command:
+
+    ```terminal
+    python interact.py
+    ```
+
+    with the output of the command being similar to the following (version numbers may be different):
+
+    ```results
+    Inserting a new row into table
+    Successfully Inserted!
+    Updating Location for Nikita
+    Successfully Updated!
+    Deleting user Jared
+    Successfully Deleted!
+    Reading data from table
+    Nikita Sweden
+    Tom Germany
+    Jake United States
+    ```
 
 
----
-layout: page-steps
-language: Python
-title: Windows
-permalink: /python/windows/server/step/2
----
+
+
+
+
+1. In the Visual Studio Code file explorer, expand the SqlServerSample directory and click on the pom.xml file.
+
+
+https://www.python.org/downloads/
+
+DOWNLOAD THE ODBC 18 DRIVER 
+https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver16
 
 > In this section you will create a simple Python app. The Python app will perform basic Insert, Update, Delete, and Select.
 
@@ -110,114 +300,4 @@ Reading data from table
 Jake United States
 ```
 
-## Step 2.3 Secure your credentials using Azure Key Vault
-
-
-**Create an Azure Key Vault and put your Secret into it.**
-
-{% include partials/create_key_vault_and_store_creds.md %}
-
-
-** Install the python libraries**
-
-The reference documentation about the python sdk for Azure can be found [**here.**](https://docs.microsoft.com/en-us/python/api/overview/azure/key-vault?view=azure-python)
-
-1. Execute the following from an Administrator command window:
-
-```terminal 
-pip install azure-keyvault-secrets 
-pip install azure-keyvault-keys
-pip install azure-keyvault-certificates
-pip install azure-identity
-```
-
-**Set up your environment to Authenticate to Azure Key Vault**
-
-This section takes you through the steps described [**on this site**](https://docs.microsoft.com/en-us/azure/key-vault/secrets/quick-create-python) to set up your machine for authentication to the key vault.  You need to do this to use the **DefaultAzureCredentialBuilder()**.
-
-1. Open a command window and execute **az login** if you have not already.
-1. Create a service prinicpal (make sure you take note of the output, as you will use it in the next two steps.):
-
-```terminal
-az ad sp create-for-rbac -n "http://mySP" --sdk-auth
-```
-
-1. Give the serpvice prinicpal access to your key vault.
-
-```terminal
-az keyvault set-policy -n <your-unique-keyvault-name> --spn <clientId-of-your-service-principal> --secret-permissions delete get list set --key-permissions create decrypt delete encrypt get list unwrapKey wrapKey
-```
-
-1. Set environment variables.  You can do this from the command line in the following way:
-
-```terminal
-setx AZURE_CLIENT_ID <your_client_id>
-setx AZURE_CLIENT_SECRET <your_client_secret>
-setx AZURE_TENANT_ID <your_tenantID>
-```
-
-**Update your crud.py to use the Key Vault for Authentication** 
-
-
-Copy the following into your crud.py, replacing the old, and being sure to update your connection information and your keyvault name:
-
-```python
-import pyodbc
-server = 'your_server.database.windows.net'
-database = 'your_database'
-username = 'your_user'
-
-from azure.identity import DefaultAzureCredential
-from azure.keyvault.secrets import SecretClient
-
-credential = DefaultAzureCredential()
-
-secret_client = SecretClient(vault_url="https://<your_keyvault_name>.vault.azure.net", credential=credential)
-
-# NOTE: please replace the ("<your-secret-name>") with the name of the secret in your vault
-secret = secret_client.get_secret("AppSecret")
-
-password = secret.value
-
-cnxn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
-cursor = cnxn.cursor()
-
-
-print ('Inserting a new row into table')
-#Insert Query
-tsql = "INSERT INTO Employees (Name, Location) VALUES (?,?);"
-with cursor.execute(tsql,'Jake','United States'):
-    print ('Successfully Inserted!')
-
-
-#Update Query
-print ('Updating Location for Nikita')
-tsql = "UPDATE Employees SET Location = ? WHERE Name = ?"
-with cursor.execute(tsql,'Sweden','Nikita'):
-    print ('Successfully Updated!')
-
-
-#Delete Query
-print ('Deleting user Jared')
-tsql = "DELETE FROM Employees WHERE Name = ?"
-with cursor.execute(tsql,'Jared'):
-    print ('Successfully Deleted!')
-
-
-#Select Query
-print ('Reading data from table')
-tsql = "SELECT Name, Location FROM Employees;"
-with cursor.execute(tsql):
-    row = cursor.fetchone()
-    while row:
-        print (str(row[0]) + " " + str(row[1]))
-        row = cursor.fetchone()
-```
-
-Then run again:
-
-```terminal
-python crud.py
-```
-
-> Congratulations! You created your first Python app with Azure SQL, and secured your credentials in Azure Key Vault! Check out the next section to learn about how you can make your Python app faster with Azure SQL's Columnstore feature.
+> Congratulations! You created your first Python apps with SQL Server!
