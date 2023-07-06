@@ -90,12 +90,13 @@
 1. Run the application in the terminal with the following command:
 
     ```bash
-      node connect.js
+    node connect.js
     ```
+
     with the output of the command being:
 
     ```results
-      Connected
+    Connected
     ```
 
 ## Step 3, Create a sample database, schema, and objects
@@ -211,13 +212,15 @@ Use [Query Editor sheets in Visual Studio Code](https://code.visualstudio.com/do
         connection.execSql(request);  
     } 
     ```
+
 1. **Save** the file.
 
 1. Run the application in the terminal with the following command:
 
     ```bash
-      node select.js
+    node select.js
     ```
+
     with the output of the command being:
 
     ```results
@@ -245,7 +248,6 @@ Use [Query Editor sheets in Visual Studio Code](https://code.visualstudio.com/do
     ```
 
     with the values of your database.
-
 
     ```javascript
     var Connection = require('tedious').Connection;
@@ -405,7 +407,7 @@ Use [Query Editor sheets in Visual Studio Code](https://code.visualstudio.com/do
 1. Run the application in the terminal with the following command:
 
     ```bash
-      node interact.js
+    node interact.js
     ```
 
     with the results being:
