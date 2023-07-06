@@ -1,5 +1,7 @@
 # Create a C# app that connects to SQL Server with the Microsoft SqlClient Data Provider for SQL Server
 
+> These examples may be used with Azure SQL Database
+
 ## Prerequisites
 
 1. [C# for Visual Studio Code Extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
@@ -10,7 +12,7 @@
 
 1. Select File > Open Folder (File > Open... on macOS) from the main menu.
 
-1. In the Open Folder dialog, create a csharpexample folder and select it. Then click Select Folder (Open on macOS).
+1. In the Open Folder dialog, create a csharpexample folder in a directory of your choice and select it. Then click Select Folder (Open on macOS).
 
     The folder name becomes the project name and the namespace name by default. You'll add code later in the tutorial that assumes the project namespace is HelloWorld.
 

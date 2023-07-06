@@ -1,16 +1,145 @@
----
-layout: page-steps
-language: Java
-title: Windows
-permalink: /java/windows/server/step/2
----
+# Create a Java app that connects to SQL Server
 
-PREREQS
+> These examples may be used with Azure SQL Database
 
-JAVA and MAVEN
-    add to env path
+## Prerequisites
+
+1. [Java](https://www.java.com/en/download/)
+1. [Maven](https://maven.apache.org/download.cgi)
+1. Ensure that both Maven and Java are in you Environment PATH. You can check Maven with **mvn -versio**n and Java with **java -version**.
+
+## Step 1, Create a Java app that connects to SQL Server and executes queries using Visual Studio Code
+
+1. Start Visual Studio Code.
+
+1. Select File > Open Folder (File > Open... on macOS) from the main menu.
+
+1. In the Open Folder dialog, create a javaexample folder in a directory of your choice and select it. Then click Select Folder (Open on macOS).
+
+    The folder name becomes the project name and the namespace name by default. You'll add code later in the tutorial that assumes the project namespace is HelloWorld.
+
+1. In the Do you trust the authors of the files in this folder? dialog, select **Yes, I trust the authors**.
+
+1. Open the **Terminal** in Visual Studio Code by selecting View > Terminal from the main menu.
+
+    The Terminal opens with the command prompt in the javaexample folder.
+
+1. In the Terminal, enter the following command to create a Maven starter package:
+
+    ```bash
+    mvn archetype:generate "-DgroupId=com.sqlsamples" "-DartifactId=SqlServerSample" "-DarchetypeArtifactId=maven-archetype-quickstart" "-Dversion=1.0.0"
+    ```
+    
+    > You may need to press enter/return to have the command continue when you come to a point with the text " Y: :".
+
+1. In the Visual Studio Code file explorer, expand the SqlServerSample directory and click on the [pom.xml](https://maven.apache.org/pom.html) file.
+
+1. Replace the contents of the pom.xml file with the following code:
+
+    ```xml
+    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+        <modelVersion>4.0.0</modelVersion>
+        <groupId>com.sqlsamples</groupId>
+        <artifactId>SqlServerSample</artifactId>
+        <packaging>jar</packaging>
+        <version>1.0.0</version>
+        <name>SqlServerSample</name>
+        <url>http://maven.apache.org</url>
+        <dependencies>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.13.2</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- add the JDBC Driver -->
+            <dependency>
+                <groupId>com.microsoft.sqlserver</groupId>
+                <artifactId>mssql-jdbc</artifactId>
+                <version>12.2.0.jre8</version>
+            </dependency>
+        </dependencies>
+        <properties>
+            <!-- specify which version of Java to build against-->
+            <maven.compiler.source>1.8</maven.compiler.source>
+            <maven.compiler.target>1.8</maven.compiler.target>
+        </properties>
+    </project>
+    ```
+
+1. **Save** the file.
+
+1. Using the Visual Studio Code file explorer again, find the App.java file located at SqlServerSample\src\main\java\com\sqlsamples\App.java
+
+1. Click on the App.java file to bring it up in the Visual Studio Code editor.
+
+1. Replace the contents of App.java by copying and pasting the code below into the file. Don't forget to replace
+
+    ```java
+    String connectionUrl = "jdbc:sqlserver://<your_server.database.windows.net>:<your_database_port>;databaseName=master;encrypt=true;trustServerCertificate=true;user=<your_username>;password=<your_password>";
+    ```
+
+    with the values of your database.
+
+    ```java
+    package com.sqlsamples;
+    
+    import java.sql.Connection;
+    import java.sql.DriverManager;
+    
+    public class App {
+    
+        public static void main(String[] args) {
+    
+            String connectionUrl = "jdbc:sqlserver://<your_server.database.windows.net>:<your_database_port>;databaseName=master;encrypt=true;trustServerCertificate=true;user=<your_username>;password=<your_password>";
+    
+            try {
+                // Load SQL Server JDBC driver and establish connection.
+                System.out.print("Connecting to SQL Server ... ");
+                try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+                    System.out.println("Done.");
+                }
+            } catch (Exception e) {
+                System.out.println();
+                e.printStackTrace();
+            }
+        }
+    }
+    ```
+
+1. **Save** the file.
+
+1. Using the terminal, enter the javaexample\SqlServerSample directory. You can check in the terminal with the pwd command.
 
 
+    with the output of the command being similar to the following. The important point is to be in the SqlServerSample directory:
+
+    ```results
+    PS C:\projects\javaexample\SqlServerSample> pwd
+
+    Path
+    ----
+    C:\projects\javaexample\SqlServerSample
+    ```
+
+1. While in the SqlServerSample directory, build the project and create a jar package using the following command:
+
+    ```bash
+    mvn package
+    ```
+
+1. Again, in the terminal, run the application with the following command. You can remove the “-q” in the command below to show info messages from Maven.
+
+    ```bash
+    mvn -q exec:java "-Dexec.mainClass=com.sqlsamples.App"
+    ```
+
+    with the output of the command being:
+
+    ```results
+    Connecting to SQL Server ... Done.
+    ```
 > In this section you will create two simple Java apps. One of them will perform basic Insert, Update, Delete, and Select, while the second one will make use of [Hibernate](http://hibernate.org/orm/), one of the most popular Java Object-relational mappers, to execute the same operations.
 
 ## Step 2.1 Get Connection Information to use in Connection Strings, and Create a Firewall Rule.

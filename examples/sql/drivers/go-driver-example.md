@@ -1,4 +1,6 @@
-# Create a Go app that connects to SQL Server and executes queries using Visual Studio Code
+# Create a Go app that connects to SQL Server
+
+> These examples may be used with Azure SQL Database
 
 ## Prerequisites
 
@@ -11,7 +13,7 @@
 
 1. Select File > Open Folder (File > Open... on macOS) from the main menu.
 
-1. In the Open Folder dialog, create a goexample folder and select it. Then click Select Folder (Open on macOS).
+1. In the Open Folder dialog, create a goexample folder in a directory of your choice and select it. Then click Select Folder (Open on macOS).
 
     The folder name becomes the project name and the namespace name by default. You'll add code later in the tutorial that assumes the project namespace is HelloWorld.
 
@@ -389,4 +391,4 @@ Use [Query Editor sheets in Visual Studio Code](https://code.visualstudio.com/do
     Deleted 1 rows successfully.
     ```
 
-> Congratulations! You created your first three Go apps with SQL Server!
+> Congratulations! You created your first Go apps with SQL Server!
