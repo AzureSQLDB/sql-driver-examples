@@ -138,6 +138,8 @@ Visual Studio creates a new C# Console Application project and opens the file **
 
 **Add Entity Framework dependencies to your project**
 
+https://learn.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli
+
 1. Open the Package Manager Console in Visual Studio with "Tools -> Nuget Package Manager -> Package Manager Console"
 1. Type: "Install-Package EntityFramework"
 1. Hit enter
