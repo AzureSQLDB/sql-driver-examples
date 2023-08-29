@@ -1,6 +1,6 @@
-# Get started with SQL Server
+# Get started developing with SQL Server
 
-### Code examples for SQL Server and Azure SQL DB developers to get started.
+### Driver code examples for SQL Server and Azure SQL DB developers to get started.
 
 #### Driver examples include:
 
