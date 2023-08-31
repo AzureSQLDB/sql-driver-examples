@@ -1,4 +1,4 @@
-# Create a PHP app that connects to SQL Server and executes queries using Visual Studio Code
+# Create a PHP app that connects to SQL Server and executes queries
 
 > These examples may be used with Azure SQL Database
 

@@ -1,4 +1,4 @@
-# Create a Go app that connects to SQL Server
+# Create a Go app that connects to SQL Server and executes queries using Visual Studio Code
 
 > These examples may be used with Azure SQL Database
 

@@ -1,4 +1,4 @@
-# Create a C# app that connects to SQL Server with the Microsoft SqlClient Data Provider for SQL Server
+# Create a C#/.NET app that connects to SQL Server and executes queries using Visual Studio Code
 
 > These examples may be used with Azure SQL Database
 
