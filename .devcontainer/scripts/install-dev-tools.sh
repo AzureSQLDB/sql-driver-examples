@@ -6,5 +6,13 @@ dotnet tool install -g microsoft.sqlpackage
 sudo apt-get update
 sudo apt-get install sqlcmd
 sudo apt-get 
-pecl install sqlsrv-5.11.1
-pecl install pdo_sqlsrv-5.11.1
+sudo su
+ACCEPT_EULA=Y apt-get install -y --allow-downgrades msodbcsql18 odbcinst=2.3.7 odbcinst1debian2=2.3.7 unixodbc-dev=2.3.7 unixodbc=2.3.7
+pecl install sqlsrv
+pecl install pdo_sqlsrv
+apt-get install php-common
+phpenmod sqlsrv pdo_sqlsrv
+echo extension=sqlsrv.so >> /usr/local/php/8.2.0/ini/php.ini
+echo extension=pdo_sqlsrv.so >> /usr/local/php/8.2.0/ini/php.ini
+exit
+
