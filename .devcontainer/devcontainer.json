@@ -1,31 +1,22 @@
 {
 	"image": "mcr.microsoft.com/devcontainers/dotnet:7.0",
   "features": {
-	  "ghcr.io/devcontainers-contrib/features/npm-package:1": {
-		  "package": "typescript",
-		  "version": "latest"
-	  },
-	  "ghcr.io/devcontainers/features/node:1": {
-		  "nodeGypDependencies": true,
-		  "version": "latest"
-	  },
-	  "ghcr.io/devcontainers/features/docker-in-docker:2": {
-		  "moby": true,
-		  "azureDnsAutoDetection": true,
-		  "installDockerBuildx": true,
-		  "version": "latest",
-		  "dockerDashComposeVersion": "v1"
-	  }
+	  "ghcr.io/devcontainers-contrib/features/npm-package:1": {},
+	  "ghcr.io/devcontainers/features/node:1": {},
+	"ghcr.io/devcontainers/features/docker-in-docker:2": {},
+	"ghcr.io/devcontainers/features/go:1": {},
+	"ghcr.io/devcontainers/features/java:1": {},
+	"ghcr.io/devcontainers/features/php:1": {},
+	"ghcr.io/devcontainers/features/python:1": {},
+	"ghcr.io/jlaundry/devcontainer-features/mssql-odbc-driver:1": {}
 	},
   "postCreateCommand": "bash .devcontainer/scripts/install-dev-tools.sh",
   "customizations": {
 	  "vscode": {
 		  "extensions": [
-			  "ms-mssql.sql-database-projects-vscode",
 			  "ms-azuretools.vscode-azurefunctions",
 			  "ms-vscode.azure-account",
-			  "ms-azuretools.vscode-azureresourcegroups",
-			  "humao.rest-client"
+			  "ms-azuretools.vscode-azureresourcegroups"
 		  ]
 	  }
   }
