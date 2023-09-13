@@ -4,7 +4,7 @@
 
 Can't install VS Code? Or the drivers? Or just want to test drive these examples? No problem! Create a codespace on this repository with everything you need pre-installed!
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=660781253&skip_quickstart=true)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&skip_quickstart=true)
 
 #### Driver examples include:
 
