@@ -1,14 +1,44 @@
 {
 	"image": "mcr.microsoft.com/devcontainers/dotnet:7.0",
   "features": {
-	  "ghcr.io/devcontainers-contrib/features/npm-package:1": {},
-	  "ghcr.io/devcontainers/features/node:1": {},
-	"ghcr.io/devcontainers/features/docker-in-docker:2": {},
-	"ghcr.io/devcontainers/features/go:1": {},
-	"ghcr.io/devcontainers/features/java:1": {},
-	"ghcr.io/devcontainers/features/php:1": {},
-	"ghcr.io/devcontainers/features/python:1": {},
-	"ghcr.io/jlaundry/devcontainer-features/mssql-odbc-driver:1": {}
+	  "ghcr.io/devcontainers-contrib/features/npm-package:1": {
+		"package": "typescript",
+		"version": "latest"
+	},
+	  "ghcr.io/devcontainers/features/node:1": {
+		"nodeGypDependencies": true,
+		"version": "lts",
+		"nvmVersion": "latest"
+	},
+	"ghcr.io/devcontainers/features/docker-in-docker:2": {
+		"moby": true,
+		"azureDnsAutoDetection": true,
+		"installDockerBuildx": true,
+		"version": "latest",
+		"dockerDashComposeVersion": "v2"
+	},
+	"ghcr.io/devcontainers/features/go:1": {
+		"version": "latest"
+	},
+	"ghcr.io/devcontainers/features/java:1": {
+		"installMaven": true,
+		"version": "latest",
+		"jdkDistro": "ms",
+		"gradleVersion": "latest",
+		"mavenVersion": "latest",
+		"antVersion": "latest"
+	},
+	"ghcr.io/devcontainers/features/php:1": {
+		"installComposer": true,
+		"version": "8.2.0"
+	},
+	"ghcr.io/devcontainers/features/python:1": {
+		"installTools": true,
+		"version": "latest"
+	},
+	"ghcr.io/jlaundry/devcontainer-features/mssql-odbc-driver:1": {
+		"version": "18"
+	}
 	},
   "postCreateCommand": "bash .devcontainer/scripts/install-dev-tools.sh",
   "customizations": {
