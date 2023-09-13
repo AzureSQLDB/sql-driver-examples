@@ -5,7 +5,6 @@ sudo apt install php-dev -y
 dotnet tool install -g microsoft.sqlpackage
 sudo apt-get update
 sudo apt-get install sqlcmd
-sudo apt-get 
 sudo su
 ACCEPT_EULA=Y apt-get install -y --allow-downgrades msodbcsql18 odbcinst=2.3.7 odbcinst1debian2=2.3.7 unixodbc-dev=2.3.7 unixodbc=2.3.7
 pecl install sqlsrv
