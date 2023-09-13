@@ -2,6 +2,8 @@
 
 ### Driver code examples for SQL Server and Azure SQL DB developers to get started.
 
+Can't install VS Code? Or the drivers? Or just want to test drive these examples? No problem! Create a code space on this repository with everything you need pre-installed!
+
 #### Driver examples include:
 
 * [C#](./examples/sql/drivers/csharp-driver-example.md)
