@@ -17,7 +17,7 @@
 		  "dockerDashComposeVersion": "v1"
 	  }
 	},
-  "postCreateCommand": "bash ./scripts/install-dev-tools.sh",
+  "postCreateCommand": "bash .devcontainer/scripts/install-dev-tools.sh",
   "customizations": {
 	  "vscode": {
 		  "extensions": [
