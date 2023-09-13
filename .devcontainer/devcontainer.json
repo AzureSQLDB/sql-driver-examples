@@ -1,0 +1,32 @@
+{
+	"image": "mcr.microsoft.com/devcontainers/dotnet:7.0",
+  "features": {
+	  "ghcr.io/devcontainers-contrib/features/npm-package:1": {
+		  "package": "typescript",
+		  "version": "latest"
+	  },
+	  "ghcr.io/devcontainers/features/node:1": {
+		  "nodeGypDependencies": true,
+		  "version": "latest"
+	  },
+	  "ghcr.io/devcontainers/features/docker-in-docker:2": {
+		  "moby": true,
+		  "azureDnsAutoDetection": true,
+		  "installDockerBuildx": true,
+		  "version": "latest",
+		  "dockerDashComposeVersion": "v1"
+	  }
+	},
+  "postCreateCommand": "bash ./scripts/install-dev-tools.sh",
+  "customizations": {
+	  "vscode": {
+		  "extensions": [
+			  "ms-mssql.sql-database-projects-vscode",
+			  "ms-azuretools.vscode-azurefunctions",
+			  "ms-vscode.azure-account",
+			  "ms-azuretools.vscode-azureresourcegroups",
+			  "humao.rest-client"
+		  ]
+	  }
+  }
+  }
