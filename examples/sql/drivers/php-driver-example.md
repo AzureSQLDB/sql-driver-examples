@@ -75,7 +75,7 @@ sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "INSERT INTO TestSchem
 sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "SELECT * FROM TestSchema.Employees;"
 ```
 
-1. Using your favorite text editor, create a new file called crud.php in the SqlServerSample folder. Paste the code below inside into the new file. This will insert, update, delete, and read a few rows. 
+1. Using your favorite text editor, create a new file called interact.php in the SqlServerSample folder. Paste the code below inside into the new file. This will insert, update, delete, and read a few rows. 
 
 ```php
 <?php
@@ -157,7 +157,7 @@ function FormatErrors( $errors )
 1. Run your PHP script from the terminal.
 
 ```terminal
-php crud.php
+php interact.php
 ```
 
 ```results
