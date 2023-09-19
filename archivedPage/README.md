@@ -1,0 +1,1 @@
+**The content in this directory is archived from the retired SQL Server Developers page**
