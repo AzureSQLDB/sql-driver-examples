@@ -21,7 +21,7 @@ sqlcmd create mssql -u devDB --accept-eula
 
 * examples
   * azure (Azure SQL database examples)
-  * codespace (broken out scripts to run in code space)
+  * codespace (broken out scripts to run in your codespace)
     * C# example scripts
     * Go example scripts
     * Java example scripts
