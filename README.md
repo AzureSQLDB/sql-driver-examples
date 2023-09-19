@@ -2,13 +2,22 @@
 
 ## Driver code examples for SQL Server and Azure SQL DB developers to get started.
 
+
+### Using codespaces
+
 Can't install VS Code? Or the drivers? Or just want to test drive these examples? No problem! Create a codespace on this repository with everything you need pre-installed!
 
 This codespace takes a bit of time to create seeing we are installing all the languages and components you need.
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&skip_quickstart=true)
 
-### Repository Structure
+Quickly create a database in your codespace with the following command:
+
+```bash
+sqlcmd create mssql -u devDB --accept-eula
+```
+
+## Repository Structure
 
 * examples
   * azure (Azure SQL database examples)
