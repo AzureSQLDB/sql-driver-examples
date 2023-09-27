@@ -2,7 +2,6 @@
 
 ## Driver code examples for SQL Server and Azure SQL DB developers to get started.
 
-
 ### Using codespaces
 
 Can't install VS Code? Or the drivers? Or just want to test drive these examples? No problem! Create a codespace on this repository with everything you need pre-installed!
